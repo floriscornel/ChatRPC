@@ -6,7 +6,7 @@ import { Method } from './method';
  */
 export class Service {
   name: string;
-  methods: object = {};
+  methods: Record<string, Method<any, any>> = {};
   description?: string;
   keywords?: string[];
 
@@ -55,5 +55,18 @@ export class Service {
         [K in N]: Method<I, O>;
       };
     };
+  }
+
+  describe(): string {
+    const methods: Record<string, object> = {};
+    for (const [name, method] of Object.entries(this.methods)) {
+      methods[name] = method.describe();
+    }
+    return JSON.stringify({
+      name: this.name,
+      description: this.description,
+      keywords: this.keywords,
+      methods,
+    });
   }
 }

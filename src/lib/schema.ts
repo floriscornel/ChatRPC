@@ -14,6 +14,7 @@ export type Schema<T> = BaseSchema<T> &
     | NumberSchema
     | StringSchema
     | BooleanSchema
+    | AnySchema
     | NullSchema
   );
 
@@ -61,6 +62,10 @@ export type NullSchema = {
   type: 'null';
 };
 
+export type AnySchema = {
+  type: 'any';
+};
+
 export type SchemaTypeString<T> = T extends string
   ? 'string'
   : T extends number
@@ -73,4 +78,4 @@ export type SchemaTypeString<T> = T extends string
   ? 'array'
   : T extends object
   ? 'object'
-  : 'object';
+  : 'any';

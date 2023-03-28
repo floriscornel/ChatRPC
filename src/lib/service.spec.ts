@@ -3,11 +3,11 @@ import test from 'ava';
 import { Method } from './method';
 import { Service } from './service';
 
-const reserveHotelRoomMethod: Method<
+const reserveHotelRoomMethod = new Method<
   { beginDate: string; endDate: string },
   { orderId: string }
-> = {
-  inputDefinition: {
+>(
+  {
     type: 'object',
     properties: {
       beginDate: {
@@ -20,7 +20,7 @@ const reserveHotelRoomMethod: Method<
       },
     },
   },
-  outputDefinition: {
+  {
     type: 'object',
     properties: {
       orderId: {
@@ -28,12 +28,12 @@ const reserveHotelRoomMethod: Method<
       },
     },
   },
-  handler: async () => {
+  async () => {
     return {
       orderId: '1234',
     };
-  },
-};
+  }
+);
 
 const hotelService = new Service('hotel', 'A service for hotels', [
   'hotel',

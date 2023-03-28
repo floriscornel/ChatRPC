@@ -44,17 +44,17 @@ const outputDefinition: Schema<Output> = {
   },
 };
 
-const testMethod: Method<Input, Output> = {
+const testMethod = new Method<Input, Output>(
   inputDefinition,
   outputDefinition,
-  handler: async (input: Input): Promise<Output> => {
+  async (input: Input): Promise<Output> => {
     return {
       orderId: '1234',
       products: input.products,
       status: 'pending',
     };
-  },
-};
+  }
+);
 
 test('check types', async (t) => {
   const res = await testMethod.handler({ products: ['123', '123'] });
