@@ -17,7 +17,7 @@ const calculatorService = new Service('calculator').registerMethod(
 ```
 
 The LLM's will be prompted to output only valid JSON that can either contain a `message` to the user or a `method` call, for example:
-```json
+```
 User: {"message":"Hello, I would like to get information about currency conversion."}
 Assistant: {"message":"I have have access to a realtime currency conversion service. What currency would you like to convert from?"}
 User: {"message":"I would like to convert 500 USD to EUR."}
