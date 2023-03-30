@@ -1,67 +1,25 @@
 import test from 'ava';
 
 import { Method } from './method';
-import { Schema } from './schema';
 
-type Input = {
-  products: string[];
-};
+test('isEven Method', async (t) => {
+  const isEven = new Method(
+    async (input: number) => input % 2 === 0,
+    { type: 'number' },
+    { type: 'boolean' }
+  );
 
-const inputDefinition: Schema<Input> = {
-  type: 'object',
-  properties: {
-    products: {
-      type: 'array',
-      items: {
-        type: 'string',
-      },
-    },
-  },
-};
+  const data = [
+    { input: 0, output: true },
+    { input: 1, output: false },
+    { input: 2, output: true },
+    { input: 3, output: false },
+    { input: 4, output: true },
+    { input: 5, output: false },
+    { input: 6, output: true },
+  ];
 
-type Output = {
-  orderId: string;
-  products: string[];
-  status: 'pending' | 'processing' | 'shipped' | 'delivered';
-};
-
-const outputDefinition: Schema<Output> = {
-  type: 'object',
-  properties: {
-    orderId: {
-      type: 'string',
-    },
-    products: {
-      type: 'array',
-      items: {
-        type: 'string',
-      },
-    },
-    status: {
-      type: 'string',
-      enum: ['pending', 'processing', 'shipped', 'delivered'],
-    },
-  },
-};
-
-const testMethod = new Method<Input, Output>(
-  inputDefinition,
-  outputDefinition,
-  async (input: Input): Promise<Output> => {
-    return {
-      orderId: '1234',
-      products: input.products,
-      status: 'pending',
-    };
+  for (const { input, output } of data) {
+    t.is(await isEven.handler(input), output);
   }
-);
-
-test('check types', async (t) => {
-  const res = await testMethod.handler({ products: ['123', '123'] });
-  const expected = {
-    orderId: '1234',
-    products: ['123', '123'],
-    status: 'pending',
-  };
-  t.deepEqual(res, expected);
 });

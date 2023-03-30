@@ -6,6 +6,7 @@ import { Method } from './method';
  */
 export class Service {
   name: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   methods: Record<string, Method<any, any>> = {};
   description?: string;
   keywords?: string[];

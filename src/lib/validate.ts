@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Schema } from './schema';
 
 /**
@@ -47,11 +48,13 @@ export function validate(input: any, schema: Schema<any>): boolean {
     case 'number':
       return validateNumber(input, schema);
     case 'boolean':
-      return validateBoolean(input, schema);
+      return validateBoolean(input);
     case 'null':
-      return validateNull(input, schema);
+      return validateNull(input);
     case 'array':
       return validateArray(input, schema);
+    case 'any':
+      return true;
     default:
       throw new Error(`Unknown type: ${expectedType}`);
   }
@@ -94,7 +97,7 @@ function validateString(input: any, schema: Schema<string>): boolean {
   if (schema.maxLength && input.length > schema.maxLength) {
     return false;
   }
-  if (schema.pattern && !input.match(schema.pattern)) {
+  if (schema.pattern && !input.match(new RegExp(schema.pattern))) {
     return false;
   }
   if (schema.enum && !schema.enum.includes(input)) {
@@ -116,14 +119,14 @@ function validateNumber(input: any, schema: Schema<number>): boolean {
   return true;
 }
 
-function validateBoolean(input: any, _schema: Schema<boolean>): boolean {
+function validateBoolean(input: any): boolean {
   if (typeof input !== 'boolean') {
     return false;
   }
   return true;
 }
 
-function validateNull(input: any, _schema: Schema<null>): boolean {
+function validateNull(input: any): boolean {
   return input === null;
 }
 

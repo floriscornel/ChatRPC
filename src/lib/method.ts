@@ -12,9 +12,9 @@ import { Schema } from './schema';
  * Here's a simple example:
  * ```ts
  * const isEvenMethod = new Method<number, boolean>(
+ *   async (input) => input % 2 === 0,
  *   { type: 'number' },
- *   { type: 'boolean' },
- *   async (input) => input % 2 === 0
+ *   { type: 'boolean' }
  * );
  * const result = await isEvenMethod.handler(123); // false
  *
@@ -26,6 +26,13 @@ import { Schema } from './schema';
  * type ReserveOut = { reservationId?: number; error?: string };
  * const reserveHotelRoomMethod = new Method<ReserveIn, ReserveOut>(
  *   {
+ *   async (input) => {
+ *     const { data } = await axios.post('/user', input);
+ *     if (data.error) {
+ *       return { error: data.error };
+ *     }
+ *     return { reservationId: data.reservationId };
+ *   }
  *     type: 'object',
  *     properties: {
  *       hotelId: { type: 'number' },
@@ -41,18 +48,16 @@ import { Schema } from './schema';
  *       error: { type: 'string' },
  *     },
  *   },
- *   async (input) => {
- *     const { data } = await axios.post('/user', input);
- *     if (data.error) {
- *       return { error: data.error };
- *     }
- *     return { reservationId: data.reservationId };
- *   }
  * );
  * ```
  */
 export class Method<Input, Output> {
   constructor(
+    /**
+     * The async function that handles the method call. It takes an input of type `Input`
+     * and returns a value of type `Output` or a Promise that resolves to `Output`.
+     */
+    public handler: (input: Input) => Promise<Output>,
     /**
      * This {@link Schema} defines the input type. It can be a simple type like `number` or `string`,
      * or it can be a complex type like an object or an array. Nested objects and arrays are also supported.
@@ -67,11 +72,6 @@ export class Method<Input, Output> {
      * or it can be a complex type like an object or an array. Nested objects and arrays are also supported.
      */
     public outputDefinition: Schema<Output>,
-    /**
-     * The async function that handles the method call. It takes an input of type `Input`
-     * and returns a value of type `Output` or a Promise that resolves to `Output`.
-     */
-    public handler: (input: Input) => Promise<Output>,
     /**
      * This description can be used to describe the method. This can be read by the LLM.
      */

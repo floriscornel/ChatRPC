@@ -3,49 +3,67 @@ import test from 'ava';
 import { Method } from './method';
 import { Service } from './service';
 
-const reserveHotelRoomMethod = new Method<
-  { beginDate: string; endDate: string },
-  { orderId: string }
->(
-  {
-    type: 'object',
-    properties: {
-      beginDate: {
-        type: 'string',
-        format: 'date',
-      },
-      endDate: {
-        type: 'string',
-        format: 'date',
-      },
-    },
-  },
-  {
-    type: 'object',
-    properties: {
-      orderId: {
-        type: 'string',
-      },
-    },
-  },
-  async () => {
-    return {
-      orderId: '1234',
-    };
+test('Calculator Service', async (t) => {
+  type Pair = { lhs: number; rhs: number };
+  const calculatorService = new Service('calculator')
+    .registerMethod(
+      'add',
+      new Method<Pair, number>(
+        async ({ lhs, rhs }) => lhs + rhs,
+        {
+          type: 'object',
+          properties: { lhs: { type: 'number' }, rhs: { type: 'number' } },
+        },
+        { type: 'number' }
+      )
+    )
+    .registerMethod(
+      'subtract',
+      new Method<Pair, number>(
+        async ({ lhs, rhs }) => lhs - rhs,
+        {
+          type: 'object',
+          properties: { lhs: { type: 'number' }, rhs: { type: 'number' } },
+        },
+        { type: 'number' }
+      )
+    )
+    .registerMethod(
+      'multiply',
+      new Method<Pair, number>(
+        async ({ lhs, rhs }) => lhs * rhs,
+        {
+          type: 'object',
+          properties: { lhs: { type: 'number' }, rhs: { type: 'number' } },
+        },
+        { type: 'number' }
+      )
+    )
+    .registerMethod(
+      'divide',
+      new Method<Pair, number>(
+        async ({ lhs, rhs }) => lhs / rhs,
+        {
+          type: 'object',
+          properties: { lhs: { type: 'number' }, rhs: { type: 'number' } },
+        },
+        { type: 'number' }
+      )
+    );
+
+  t.is(
+    JSON.stringify(calculatorService.describe()),
+    '{"name":"calculator","methods":{"add":{"inputDefinition":{"type":"object","properties":{"lhs":{"type":"number"},"rhs":{"type":"number"}}},"outputDefinition":{"type":"number"}},"subtract":{"inputDefinition":{"type":"object","properties":{"lhs":{"type":"number"},"rhs":{"type":"number"}}},"outputDefinition":{"type":"number"}},"multiply":{"inputDefinition":{"type":"object","properties":{"lhs":{"type":"number"},"rhs":{"type":"number"}}},"outputDefinition":{"type":"number"}},"divide":{"inputDefinition":{"type":"object","properties":{"lhs":{"type":"number"},"rhs":{"type":"number"}}},"outputDefinition":{"type":"number"}}}}'
+  );
+
+  const data = [
+    ['add', { lhs: 1, rhs: 2 }, 3],
+    ['subtract', { lhs: 1, rhs: 2 }, -1],
+    ['multiply', { lhs: 1, rhs: 2 }, 2],
+    ['divide', { lhs: 1, rhs: 2 }, 0.5],
+  ] as const;
+
+  for (const [methodName, input, output] of data) {
+    t.is(await calculatorService.methods[methodName].handler(input), output);
   }
-);
-
-const hotelService = new Service('hotel', 'A service for hotels', [
-  'hotel',
-  'reservation',
-])
-  .registerMethod('reserveHotelRoom', reserveHotelRoomMethod)
-  .registerMethod('reserveHotelRoom2', reserveHotelRoomMethod);
-
-test('service', async (t) => {
-  const result = await hotelService.methods.reserveHotelRoom.handler({
-    beginDate: '2019-01-01',
-    endDate: '2019-01-02',
-  });
-  t.is(result.orderId, '1234');
 });

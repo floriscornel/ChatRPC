@@ -50,7 +50,7 @@ export type StringSchema = {
   enum?: string[];
   minLength?: number;
   maxLength?: number;
-  pattern?: string;
+  pattern?: string | RegExp;
   format?: string;
 };
 
