@@ -6,6 +6,7 @@
   "typings": "build/main/index.d.ts",
   "module": "build/module/index.js",
   "repository": "https://github.com/floriscornel/chatrpc",
+  "author": "Floris Cornel <floris@cornel.email>",
   "license": "MIT",
   "keywords": [],
   "scripts": {

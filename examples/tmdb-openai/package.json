@@ -1,5 +1,5 @@
 {
-  "name": "openai-cli",
+  "name": "tmdb-openai",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -7,8 +7,8 @@
     "start": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Floris Cornel <floris@cornel.email>",
+  "license": "MIT",
   "dependencies": {
     "chatrpc": "file:../../",
     "dotenv": "^16.0.3",
