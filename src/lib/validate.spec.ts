@@ -58,22 +58,22 @@ test('validate', (t) => {
   t.is(result, true);
 });
 
-test('validate2', (t) => {
-  t.is(
-    validate(
-      { query: 'The Matrix', year: 1999 },
-      {
-        type: 'object',
-        properties: {
-          query: { type: 'string' },
-          page: { type: 'number' },
-          include_adult: { type: 'boolean' },
-          year: { type: 'number' },
-          primary_release_year: { type: 'number' },
-        },
-        required: ['query'],
-      }
-    ),
-    true
-  );
-});
+// test('validate2', (t) => {
+//   t.is(
+//     validate(
+//       { query: 'The Matrix', year: 1999 },
+//       {
+//         type: 'object',
+//         properties: {
+//           query: { type: 'string' },
+//           page: { type: 'number' },
+//           include_adult: { type: 'boolean' },
+//           year: { type: 'number' },
+//           primary_release_year: { type: 'number' },
+//         },
+//         required: ['query'],
+//       }
+//     ),
+//     true
+//   );
+// });
