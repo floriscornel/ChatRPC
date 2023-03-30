@@ -4,7 +4,8 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [0.0.2](https://github.com/floriscornel/chatrpc/compare/v0.1.1...v0.0.2) (2023-03-30)
 
-### 0.1.1 (2023-03-30)
+### Added
+- 100% test coverage
 
 ## [0.0.1] - 2023-03-30
 
