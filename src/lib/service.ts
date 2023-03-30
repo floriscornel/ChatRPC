@@ -57,16 +57,16 @@ export class Service {
     };
   }
 
-  describe(): string {
+  describe(): object {
     const methods: Record<string, object> = {};
     for (const [name, method] of Object.entries(this.methods)) {
       methods[name] = method.describe();
     }
-    return JSON.stringify({
+    return {
       name: this.name,
       description: this.description,
       keywords: this.keywords,
       methods,
-    });
+    };
   }
 }

@@ -5,16 +5,12 @@ import {
   MethodRequestWrapper,
   methodRequestWrapperSchema,
 } from './interface';
-import { Service } from './service';
 import { validate } from './validate';
 
 /**
  * This is the prompt that will be sent to the OpenAI API.
  */
-const getChatGpt3Prompt = (
-  services: Service[],
-  promptSuffix: string
-): string => {
+const getChatGpt3Prompt = (promptSuffix: string): string => {
   return `Pretend to be a machine that can interact with external services. All messages must be in JSON format.
 
 Rules:
@@ -25,7 +21,8 @@ WARPPED_MESSAGE_SCHEMA: ${JSON.stringify(messageWrapperSchema)}
 RPC_EXECUTION_SCHEMA: ${JSON.stringify(methodRequestWrapperSchema)}
 Note: The user cannot see the output of the method execution. The output is only visible to the system.
 You must inform the user of the output of the method execution.
-The available services are: ${services.map((s) => s.describe())}
+To get the available services and methods, send the following message:
+Assistant: ${JSON.stringify({ service: 'root', method: 'getServices' })}
 
 A typical conversation might look like this:
 User: ${JSON.stringify({
@@ -73,7 +70,10 @@ const parseChatGptResponse = (
     input.lastIndexOf('}') + 1
   );
   if (trimmedJsonInput === '') {
-    throw new Error('The input does not contain a valid JSON object.');
+    // If the input does not contain a JSON object, we assume it is a message.
+    return {
+      message: input,
+    };
   }
   const r = JSON.parse(trimmedJsonInput);
   if (r.message != null && typeof r.message === 'string') {
@@ -115,7 +115,15 @@ export const chatGptServiceHandler: ChatHandler = async (
   if (messages.length === 0) {
     messages.push({
       role: 'system',
-      content: getChatGpt3Prompt(services, prompt),
+      content: getChatGpt3Prompt(prompt),
+    });
+    messages.push({
+      role: 'assistant',
+      content: JSON.stringify({ service: 'root', method: 'getServices' }),
+    });
+    messages.push({
+      role: 'system',
+      content: JSON.stringify({ output: services.map((s) => s.describe()) }),
     });
     // There is no last message, so we can't reply.
     return messages;
@@ -125,6 +133,7 @@ export const chatGptServiceHandler: ChatHandler = async (
   if (lastMessage.role === 'assistant') {
     try {
       const r = parseChatGptResponse(lastMessage.content);
+      lastMessage.content = JSON.stringify(r); // Make sure the message history contains valid JSON.
       if (Object.keys(r).includes('service')) {
         const { service, method, input } = r as MethodRequestWrapper;
         const s = services.find((s) => s.name === service);
@@ -150,6 +159,7 @@ export const chatGptServiceHandler: ChatHandler = async (
           return messages;
         }
         // TODO: Fix input validation with automated tests or external library.
+        // eslint-disable-next-line no-constant-condition
         if (false && !validate(input, m.inputDefinition)) {
           // Input does not match method input definition.
           messages.push({

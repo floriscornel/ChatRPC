@@ -13,7 +13,7 @@ import { tmdbService } from './tmdb';
 
 // Setup
 dotenv.config();
-const promptSuffix = ``;
+const promptSuffix = `Always check the TMDB ID for a movie before using the getMovieDetails method.`;
 const services = [tmdbService];
 let messages: Message[] = [];
 
@@ -26,7 +26,14 @@ let messages: Message[] = [];
     if (userInput === 'exit') {
       break;
     }
-    messages.push({ content: JSON.stringify({ userInput }), role: 'user' });
+    if (userInput === 'print') {
+      console.log(messages);
+      continue;
+    }
+    messages.push({
+      content: JSON.stringify({ message: userInput }),
+      role: 'user',
+    });
     await resolveResponses();
   }
 })();
@@ -72,8 +79,10 @@ async function getOpenAIResponse(messages: Message[]): Promise<Message> {
   const response = await openAi.createChatCompletion({
     model: 'gpt-3.5-turbo',
     messages,
-    max_tokens: 500,
+    max_tokens: 200,
     temperature: 0.2,
+    presence_penalty: -1.0,
+    frequency_penalty: -1.0,
     n: 1,
     stream: false,
   });
