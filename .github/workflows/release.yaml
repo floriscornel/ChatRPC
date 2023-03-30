@@ -1,0 +1,32 @@
+on:
+  release:
+    types: [created]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+          cache: "yarn"
+
+      - name: Install project dependencies
+        run: yarn
+
+      - name: Run tests
+        run: yarn test
+
+      - name: Update Code Coverage
+        run: yarn cov:send
+
+      - name: Update docs
+        run: yarn docs:html && yarn docs:publish
+
+      - name: Publish to npm
+        run: yarn publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
