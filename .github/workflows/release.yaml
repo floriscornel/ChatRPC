@@ -24,7 +24,7 @@ jobs:
         run: yarn cov:send
 
       - name: Update docs
-        run: yarn docs:html && yarn docs:publish
+        run: yarn doc:html && yarn doc:publish
 
       - name: Publish to npm
         run: yarn publish --access public

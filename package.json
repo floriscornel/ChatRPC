@@ -82,6 +82,12 @@
     "build/module",
     "!**/*.spec.*",
     "!**/*.json",
+    "!**/.env",
+    "!.github",
+    "!.vscode",
+    "!.nyc_output",
+    "!coverage",
+    "!examples",
     "CHANGELOG.md",
     "LICENSE",
     "README.md"

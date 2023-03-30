@@ -1,0 +1,8 @@
+**/*.spec.*
+**/*.json
+**/.env
+.github
+.vscode
+.nyc_output
+coverage
+examples
