@@ -7,6 +7,8 @@ export interface MethodRequestWrapper {
   input: unknown;
 }
 
+export type MethodResponseWrapper = { output: unknown } | { error: string };
+
 export const methodRequestWrapperSchema: Schema<MethodRequestWrapper> = {
   type: 'object',
   properties: {
