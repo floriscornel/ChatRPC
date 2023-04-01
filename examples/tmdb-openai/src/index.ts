@@ -1,4 +1,5 @@
 /* eslint-disable no-constant-condition */
+import { Chat, ChatMessage, getChatGpt3Prompt } from 'chatrpc';
 import dotenv from 'dotenv';
 import {
   Configuration,
@@ -7,20 +8,20 @@ import {
 } from 'openai';
 import readline from 'readline-sync';
 
-import { chatGptServiceHandler } from '../../../build/main';
-
 import { tmdbService } from './tmdb';
 
 // Setup
 dotenv.config();
-const promptSuffix = `Always check the TMDB ID for a movie before using the getMovieDetails method.`;
-const services = [tmdbService];
-let messages: Message[] = [];
+const prompt =
+  getChatGpt3Prompt() +
+  '\n' +
+  'Always check the TMDB ID for a movie before using the getMovieDetails method.';
+
+const chat = new Chat({ prompt });
+chat.registerService('getOpenAIResponse', tmdbService);
 
 // Main loop
 (async () => {
-  messages = await chatGptServiceHandler(messages, services, promptSuffix);
-  console.log(messages[0].content);
   console.log("Started TMDBot. Type 'exit' to exit.");
   while (true) {
     const userInput = readline.question('User: ');
@@ -28,45 +29,45 @@ let messages: Message[] = [];
       break;
     }
     if (userInput === 'print') {
-      console.log(messages);
+      console.log(chat.messages);
       continue;
     }
-    messages.push({
-      content: JSON.stringify({ message: userInput }),
-      role: 'user',
-    });
+    chat.addUserInput(userInput);
     await resolveResponses();
   }
 })();
 
+function print(message: ChatMessage) {
+  console.log(`${message.role}: ${message.content}}`);
+}
+
+function convertMessages(chat: ChatMessage[]): Message[] {
+  return chat.map((message) => {
+    return {
+      content: JSON.stringify(message.content),
+      role: message.role,
+    };
+  });
+}
+
 // This function will keep asking the services for responses until no more responses are returned.
 async function resolveResponses() {
   while (true) {
-    messages.push(await getOpenAIResponse(messages));
-    const lastMessage = messages[messages.length - 1];
-    if (lastMessage.content.startsWith('{"service')) {
-      console.log(
-        '\x1b[35mAssistent:',
-        messages[messages.length - 1].content,
-        '\x1b[0m'
-      );
-    } else {
-      console.log(
-        '\x1b[33mAssistent:',
-        messages[messages.length - 1].content,
-        '\x1b[0m'
-      );
+    switch (chat.lastMessage.role) {
+      case 'assistant':
+        print(chat.lastMessage);
+        return;
+      case 'system':
+        print(chat.lastMessage);
+      // eslint-disable-next-line no-fallthrough
+      case 'user':
+        // eslint-disable-next-line no-case-declarations
+        const chatGptResponse = await getOpenAIResponse(
+          convertMessages(chat.messages)
+        );
+        await chat.addAssistantOutput(chatGptResponse.content);
+        break;
     }
-    const previousCount = messages.length;
-    messages = await chatGptServiceHandler(messages, services, promptSuffix);
-    if (messages.length === previousCount) {
-      break;
-    }
-    console.log(
-      '\x1b[90mService:',
-      messages[messages.length - 1].content,
-      '\x1b[0m'
-    );
   }
 }
 

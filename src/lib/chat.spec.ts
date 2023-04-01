@@ -36,17 +36,22 @@ test('isEven Method', async (t) => {
   t.deepEqual(response, { output: false });
 
   t.deepEqual(chat.messages, [
-    { role: 'user', content: { message: 'Hello bot!' } },
-    { role: 'assistant', content: { message: 'Hello human!' } },
-    { role: 'user', content: { message: 'is 857327 even?' } },
+    { role: 'user', type: 'message', content: { message: 'Hello bot!' } },
     {
       role: 'assistant',
+      type: 'message',
+      content: { message: 'Hello human!' },
+    },
+    { role: 'user', type: 'message', content: { message: 'is 857327 even?' } },
+    {
+      role: 'assistant',
+      type: 'request',
       content: {
         service: 'isEven',
         method: 'isEven',
         input: 857327,
       },
     },
-    { role: 'system', content: { output: false } },
+    { role: 'system', type: 'response', content: { output: false } },
   ]);
 });

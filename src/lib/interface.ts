@@ -1,5 +1,8 @@
 import { Schema } from './schema';
-import { Service } from './service';
+
+export interface MessageWrapper {
+  message: string;
+}
 
 export interface MethodRequestWrapper {
   service: string;
@@ -25,10 +28,6 @@ export const methodRequestWrapperSchema: Schema<MethodRequestWrapper> = {
   required: ['service', 'method', 'input'],
 };
 
-export interface MessageWrapper {
-  message: string;
-}
-
 export const messageWrapperSchema: Schema<MessageWrapper> = {
   type: 'object',
   properties: {
@@ -38,15 +37,3 @@ export const messageWrapperSchema: Schema<MessageWrapper> = {
   },
   required: ['message'],
 };
-
-export interface ChatMessage {
-  content: string;
-  role: 'user' | 'system' | 'assistant';
-  name?: string;
-}
-
-export type ChatHandler = (
-  messages: ChatMessage[],
-  services: Service[],
-  promptSuffix: string
-) => Promise<ChatMessage[]>;

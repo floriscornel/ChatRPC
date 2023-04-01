@@ -6,29 +6,43 @@ import {
 import { Service } from './service';
 import { validate } from './validate';
 
-export interface ChatMessage {
-  content: MessageWrapper | MethodRequestWrapper | MethodResponseWrapper;
+export type ChatMessage = {
   role: 'user' | 'system' | 'assistant';
-  name?: string;
-}
+} & (
+  | {
+      role: 'user' | 'assistant' | 'system';
+      type: 'message';
+      content: MessageWrapper;
+    }
+  | {
+      role: 'assistant';
+      type: 'request';
+      content: MethodRequestWrapper;
+    }
+  | {
+      role: 'system';
+      type: 'response';
+      content: MethodResponseWrapper;
+    }
+);
 
-type ReservedServiceNames = 'prompt' | 'messages' | 'lastMessage';
+const reservedNames = ['prompt', 'messages', 'lastMessage'] as const;
+type ReservedNames = (typeof reservedNames)[number];
 
 export class Chat {
   private _prompt: string;
   private _messages: ChatMessage[] = [];
   private _services: Record<string, Service> = {};
-  private _reservedNames: string[] = ['prompt', 'messages', 'lastMessage'];
 
   constructor(config?: { prompt?: string }) {
     this._prompt = config?.prompt ?? '';
   }
 
   registerService<N extends string, S extends Service>(
-    name: N & (N extends ReservedServiceNames ? never : N),
+    name: N & (N extends ReservedNames ? never : N),
     service: S
   ) {
-    if (this._reservedNames.includes(name)) {
+    if ((reservedNames as ReadonlyArray<string>).includes(name)) {
       throw new Error(`Service name "${name}" is reserved and cannot be used.`);
     }
     this._services = { ...this._services, [name]: service };
@@ -55,23 +69,26 @@ export class Chat {
    */
   addUserInput(message: string) {
     const wrapped: MessageWrapper = { message };
-    this._messages.push({ role: 'user', content: wrapped });
+    this._messages.push({ role: 'user', type: 'message', content: wrapped });
   }
 
   /**
    * Adds a message from the user to the chat.
    */
-  addAssistantMessage(wrapper: MessageWrapper | MethodRequestWrapper) {
-    this._messages.push({
-      role: 'assistant',
-      content: wrapper,
-    });
+  addAssistantMessage(content: MessageWrapper | MethodRequestWrapper) {
+    if ('message' in content) {
+      this._messages.push({ role: 'assistant', type: 'message', content });
+    } else {
+      this._messages.push({ role: 'assistant', type: 'request', content });
+    }
   }
 
-  addSystemMessage(
-    message: MessageWrapper | MethodRequestWrapper | MethodResponseWrapper
-  ) {
-    this._messages.push({ role: 'system', content: message });
+  addSystemMessage(content: MessageWrapper | MethodResponseWrapper) {
+    if ('message' in content) {
+      this._messages.push({ role: 'system', type: 'message', content });
+    } else {
+      this._messages.push({ role: 'system', type: 'response', content });
+    }
   }
 
   /**
