@@ -1,73 +1,126 @@
 import { Method } from './method';
 
+type ReservedNames = 'name' | 'registerMethod';
+
 /**
  * This is the definition of a service that can be called by the LLM.
  * The methods are defined by a {@link Method}.
  */
 export class Service {
-  name: string;
+  private _name: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  methods: Record<string, Method<any, any>> = {};
-  description?: string;
-  keywords?: string[];
+  private _methods: Record<string, Method<any, any>> = {};
+  private _description?: string;
+  private _keywords?: string[];
+  private _reservedNames: string[] = ['name', 'registerMethod'];
 
   /**
-   * @param name The name of the service.
-   * @param description A description of the service.
-   * @param keywords A number of keywords that describe the service.
    * @example
    * Here's an example of how to create a service:
    * ```ts
-   * const hotelService = new Service('hotel', 'A service for hotels', ['hotel', 'reservation']);
+   * const hotelService = new Service({
+   *   name: 'hotel',
+   *   description: 'A service for hotels',
+   *   keywords: ['hotel', 'reservation'],
+   * });
    * ```
    */
-  constructor(name: string, description?: string, keywords?: string[]) {
-    this.name = name;
-    this.description = description;
-    this.keywords = keywords;
+  constructor(config: {
+    name: string;
+    description?: string;
+    keywords?: string[];
+  }) {
+    this._name = config.name;
+    this._description = config.description;
+    this._keywords = config.keywords;
   }
 
   /**
    * Register a method to the service.
-   * @param name The name of the method.
-   * @param method The method definition.
    * @example
    * Here's an example of how to register a method:
    * ```ts
-   * const reserveHotelRoomMethod: Method<
-   *   { beginDate: string; endDate: string },
-   *   { orderId: string }
-   * > = {
-   *   inputDefinition,
-   *   outputDefinition,
-   *   handler,
-   * };
-   *
-   * const hotelService = new Service('hotel')
-   *  .registerMethod('reserveHotelRoom', reserveHotelRoomMethod);
+   * const reserveHotelRoomMethod = new Method({
+   *   input: {
+   *     type: 'object',
+   *     properties: { beginDate: {type:'string'}, endDate: {type:'string'} },
+   *   },
+   *   output: { type: 'object', properties: { orderId: {type:'string'} } },
+   *   handler: async (input: { beginDate: string; endDate: string }) => {
+   *     return { orderId: '123' };
+   *   },
+   * });
+   * const hotelService = new Service({ name: 'hotel' })
+   *   .registerMethod('reserveHotelRoom', reserveHotelRoomMethod);
+   * hotelService.reserveHotelRoom.handler({
+   *   beginDate: '2020-01-01', endDate: '2020-01-02'
+   * });
    * ```
+   * @param name The name of the method. It should be unique within the service and not be a reserved name.
+   * @param method The method to register.
    * @see {@link Method}
    * @returns Service with the new method registered. Use this to chain method registrations.
    */
-  registerMethod<N extends string, I, O>(name: N, method: Method<I, O>) {
-    this.methods = { ...this.methods, [name]: method };
-    return this as typeof this & {
-      methods: {
-        [K in N]: Method<I, O>;
-      };
+  registerMethod<N extends string, I, O>(
+    name: N & (N extends ReservedNames ? never : N),
+    method: Method<I, O>
+  ) {
+    if (this._reservedNames.includes(name)) {
+      throw new Error(
+        `Method name "${name}" is reserved and cannot be used as a method name.`
+      );
+    }
+    this._methods = { ...this._methods, [name]: method };
+    return new Proxy<Service>(this, {
+      get(target, prop, receiver) {
+        // if prop is not a string we can't do anything with it
+        if (typeof prop !== 'string') {
+          return undefined;
+        }
+        // for existing keys in _methods, return the method
+        if (prop in target._methods) {
+          return target._methods[prop];
+        }
+        // otherwise return the value from the original object
+        return Reflect.get(target, prop, receiver);
+      },
+    }) as typeof this & {
+      [K in N]: Method<I, O>;
     };
+  }
+
+  /**
+   * Get a method by name.
+   * @param name The name of the method.
+   * @returns The method or undefined if it doesn't exist.
+   * @see {@link Method}
+   * @example
+   * Here's an example of how to get a method:
+   * ```ts
+   * hotelService.getMethod('reserveHotelRoom');
+   * ```
+   */
+  getMethod(name: string): Method<unknown, unknown> | undefined {
+    return this._methods[name];
   }
 
   describe(): object {
     const methods: Record<string, object> = {};
-    for (const [name, method] of Object.entries(this.methods)) {
+    for (const [name, method] of Object.entries(this._methods)) {
       methods[name] = method.describe();
     }
-    return {
-      name: this.name,
-      description: this.description,
-      keywords: this.keywords,
-      methods,
-    };
+    // Deep clone the object to prevent accidental mutation.
+    return JSON.parse(
+      JSON.stringify({
+        name: this._name,
+        description: this._description,
+        keywords: this._keywords,
+        methods,
+      })
+    );
+  }
+
+  get name(): string {
+    return this._name;
   }
 }

@@ -147,8 +147,8 @@ export const chatGptServiceHandler: ChatHandler = async (
           });
           return messages;
         }
-        const m = s.methods[method];
-        if (m == null) {
+        const m = s.getMethod(method);
+        if (m === undefined) {
           // Method not found.
           messages.push({
             role: 'system',
@@ -158,16 +158,15 @@ export const chatGptServiceHandler: ChatHandler = async (
           });
           return messages;
         }
-        // TODO: Fix input validation with automated tests or external library.
-        // eslint-disable-next-line no-constant-condition
-        if (false && !validate(input, m.inputDefinition)) {
+        if (!validate(input, m.input)) {
+          // TODO: Fix input validation with automated tests or external library.
           // Input does not match method input definition.
           messages.push({
             role: 'system',
             content: JSON.stringify({
               error:
                 'Your input does not match the input definition.\n' +
-                `Definition: ${JSON.stringify(m.inputDefinition)})\n` +
+                `Definition: ${JSON.stringify(m.input)})\n` +
                 `Input: ${JSON.stringify(input)}`,
             }),
           });

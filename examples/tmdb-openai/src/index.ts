@@ -20,6 +20,7 @@ let messages: Message[] = [];
 // Main loop
 (async () => {
   messages = await chatGptServiceHandler(messages, services, promptSuffix);
+  console.log(messages[0].content);
   console.log("Started TMDBot. Type 'exit' to exit.");
   while (true) {
     const userInput = readline.question('User: ');

@@ -8,8 +8,18 @@ import {
 export const searchMovies = new Method<
   SearchMovieRequest,
   MovieResultsResponse
->(
-  {
+>({
+  handler: async (input) => {
+    const moviedb = new MovieDb(process.env.TMDB_ACCESS_TOKEN ?? '');
+    const res = await moviedb.searchMovie(input);
+    return {
+      page: res.page,
+      results: res.results?.slice(0, 10) ?? [],
+      total_pages: res.total_pages,
+      total_results: res.total_results,
+    };
+  },
+  input: {
     type: 'object',
     properties: {
       query: { type: 'string' },
@@ -20,7 +30,7 @@ export const searchMovies = new Method<
     },
     required: ['query'],
   },
-  {
+  output: {
     type: 'object',
     properties: {
       page: { type: 'number' },
@@ -51,15 +61,5 @@ export const searchMovies = new Method<
     },
     required: ['page', 'results', 'total_pages', 'total_results'],
   },
-  async (input) => {
-    const moviedb = new MovieDb(process.env.TMDB_ACCESS_TOKEN ?? '');
-    const res = await moviedb.searchMovie(input);
-    return {
-      page: res.page,
-      results: res.results?.slice(0, 10) ?? [],
-      total_pages: res.total_pages,
-      total_results: res.total_results,
-    };
-  },
-  'This functions allows users to search for movies.'
-);
+  description: 'This functions allows users to search for movies.',
+});

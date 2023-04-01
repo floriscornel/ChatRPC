@@ -51,13 +51,24 @@ import { Schema } from './schema';
  * );
  * ```
  */
+
 export class Method<Input, Output> {
-  constructor(
+  private _handler: (input: Input) => Promise<Output>;
+  private _input: Schema<Input>;
+  private _output?: Schema<Output>;
+  private _description?: string;
+  private _keywords?: string[];
+
+  get handler() {
+    return this._handler;
+  }
+
+  constructor(config: {
     /**
      * The async function that handles the method call. It takes an input of type `Input`
      * and returns a value of type `Output` or a Promise that resolves to `Output`.
      */
-    public handler: (input: Input) => Promise<Output>,
+    handler: (input: Input) => Promise<Output>;
     /**
      * This {@link Schema} defines the input type. It can be a simple type like `number` or `string`,
      * or it can be a complex type like an object or an array. Nested objects and arrays are also supported.
@@ -66,28 +77,45 @@ export class Method<Input, Output> {
      * based on the input definition. Make sure to validate the input before using it. You can use the
      * {@link validate} function to validate the input.
      */
-    public inputDefinition: Schema<Input>,
+    input: Schema<Input>;
     /**
      * This {@link Schema} defines the output type. It can be a simple type like `number` or `string`,
      * or it can be a complex type like an object or an array. Nested objects and arrays are also supported.
      */
-    public outputDefinition: Schema<Output>,
+    output?: Schema<Output>;
     /**
      * This description can be used to describe the method. This can be read by the LLM.
      */
-    public description?: string,
+    description?: string;
     /**
      * A number of keywords that describe the method. This can be used by the LLM to filter methods.
      */
-    public keywords?: string[]
-  ) {}
+    keywords?: string[];
+  }) {
+    this._handler = config.handler;
+    this._input = config.input;
+    this._output = config.output;
+    this._description = config.description;
+    this._keywords = config.keywords;
+  }
 
   describe() {
-    return {
-      description: this.description,
-      keywords: this.keywords,
-      inputDefinition: this.inputDefinition,
-      outputDefinition: this.outputDefinition,
-    };
+    // Deep clone the object to prevent accidental mutation.
+    return JSON.parse(
+      JSON.stringify({
+        description: this._description,
+        keywords: this._keywords,
+        input: this._input,
+        output: this._output,
+      })
+    );
+  }
+
+  get input(): Readonly<Schema<Input>> {
+    return this._input;
+  }
+
+  get output(): Readonly<Schema<Output> | undefined> {
+    return this._output;
   }
 }
