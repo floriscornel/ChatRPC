@@ -1,23 +1,21 @@
-import { Service } from '../../../../build/main';
+import { Service } from 'chatrpc';
 
 import { getMovieDetails } from './getMovieDetails';
 import { searchMovies } from './searchMovies';
 
-export const tmdbService = new Service('tmdb', 'The Movie Database', [
-  'Movies',
-  'TV Shows',
-  'Streaming',
-  'Reviews',
-  'API',
-  'Actors',
-  'Actresses',
-  'Photos',
-  'User Ratings',
-  'Synopsis',
-  'Trailers',
-  'Teasers',
-  'Credits',
-  'Cast',
-])
+export const tmdbService = new Service({
+  name: 'tmdb',
+  description: 'The Movie Database',
+  keywords: [
+    'Movies',
+    'TV Shows',
+    'Streaming',
+    'Reviews',
+    'Actors',
+    'Actresses',
+    'User Ratings',
+    'Cast',
+  ],
+})
   .registerMethod('searchMovies', searchMovies)
   .registerMethod('getMovieDetails', getMovieDetails);

@@ -4,7 +4,7 @@ import { Service } from './service';
 export interface MethodRequestWrapper {
   service: string;
   method: string;
-  input: any;
+  input: unknown;
 }
 
 export const methodRequestWrapperSchema: Schema<MethodRequestWrapper> = {

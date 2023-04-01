@@ -1,13 +1,18 @@
 import { Method } from 'chatrpc';
 import { MovieDb, MovieResponse } from 'moviedb-promise';
 
-export const getMovieDetails = new Method<string, MovieResponse>(
-  {
+export const getMovieDetails = new Method<string, MovieResponse>({
+  handler: async (input) => {
+    const moviedb = new MovieDb(process.env.TMDB_ACCESS_TOKEN ?? '');
+    const res = await moviedb.movieInfo(input);
+    return res;
+  },
+  input: {
     type: 'string',
     description:
       'The TMDB ID for a movie. If you are unsure of the ID, use the searchMovies method.',
   },
-  {
+  output: {
     type: 'object',
     properties: {
       adult: { type: 'boolean' },
@@ -85,9 +90,4 @@ export const getMovieDetails = new Method<string, MovieResponse>(
       vote_count: { type: 'number' },
     },
   },
-  async (input) => {
-    const moviedb = new MovieDb(process.env.TMDB_ACCESS_TOKEN ?? '');
-    const res = await moviedb.movieInfo(input);
-    return res;
-  }
-);
+});

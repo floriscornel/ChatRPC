@@ -5,55 +5,55 @@ import { Service } from './service';
 
 test('Calculator Service', async (t) => {
   type Pair = { lhs: number; rhs: number };
-  const calculatorService = new Service('calculator')
+  const calculatorService = new Service({ name: 'calculator' })
     .registerMethod(
       'add',
-      new Method<Pair, number>(
-        async ({ lhs, rhs }) => lhs + rhs,
-        {
+      new Method<Pair, number>({
+        handler: async ({ lhs, rhs }) => lhs + rhs,
+        input: {
           type: 'object',
           properties: { lhs: { type: 'number' }, rhs: { type: 'number' } },
         },
-        { type: 'number' }
-      )
+        output: { type: 'number' },
+      })
     )
     .registerMethod(
       'subtract',
-      new Method<Pair, number>(
-        async ({ lhs, rhs }) => lhs - rhs,
-        {
+      new Method<Pair, number>({
+        handler: async ({ lhs, rhs }) => lhs - rhs,
+        input: {
           type: 'object',
           properties: { lhs: { type: 'number' }, rhs: { type: 'number' } },
         },
-        { type: 'number' }
-      )
+        output: { type: 'number' },
+      })
     )
     .registerMethod(
       'multiply',
-      new Method<Pair, number>(
-        async ({ lhs, rhs }) => lhs * rhs,
-        {
+      new Method<Pair, number>({
+        handler: async ({ lhs, rhs }) => lhs * rhs,
+        input: {
           type: 'object',
           properties: { lhs: { type: 'number' }, rhs: { type: 'number' } },
         },
-        { type: 'number' }
-      )
+        output: { type: 'number' },
+      })
     )
     .registerMethod(
       'divide',
-      new Method<Pair, number>(
-        async ({ lhs, rhs }) => lhs / rhs,
-        {
+      new Method<Pair, number>({
+        handler: async ({ lhs, rhs }) => lhs / rhs,
+        input: {
           type: 'object',
           properties: { lhs: { type: 'number' }, rhs: { type: 'number' } },
         },
-        { type: 'number' }
-      )
+        output: { type: 'number' },
+      })
     );
 
   t.is(
     JSON.stringify(calculatorService.describe()),
-    '{"name":"calculator","methods":{"add":{"inputDefinition":{"type":"object","properties":{"lhs":{"type":"number"},"rhs":{"type":"number"}}},"outputDefinition":{"type":"number"}},"subtract":{"inputDefinition":{"type":"object","properties":{"lhs":{"type":"number"},"rhs":{"type":"number"}}},"outputDefinition":{"type":"number"}},"multiply":{"inputDefinition":{"type":"object","properties":{"lhs":{"type":"number"},"rhs":{"type":"number"}}},"outputDefinition":{"type":"number"}},"divide":{"inputDefinition":{"type":"object","properties":{"lhs":{"type":"number"},"rhs":{"type":"number"}}},"outputDefinition":{"type":"number"}}}}'
+    '{"name":"calculator","methods":{"add":{"input":{"type":"object","properties":{"lhs":{"type":"number"},"rhs":{"type":"number"}}},"output":{"type":"number"}},"subtract":{"input":{"type":"object","properties":{"lhs":{"type":"number"},"rhs":{"type":"number"}}},"output":{"type":"number"}},"multiply":{"input":{"type":"object","properties":{"lhs":{"type":"number"},"rhs":{"type":"number"}}},"output":{"type":"number"}},"divide":{"input":{"type":"object","properties":{"lhs":{"type":"number"},"rhs":{"type":"number"}}},"output":{"type":"number"}}}}'
   );
 
   const data = [
@@ -64,6 +64,6 @@ test('Calculator Service', async (t) => {
   ] as const;
 
   for (const [methodName, input, output] of data) {
-    t.is(await calculatorService.methods[methodName].handler(input), output);
+    t.is(await calculatorService[methodName].handler(input), output);
   }
 });
