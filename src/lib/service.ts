@@ -66,9 +66,7 @@ export class Service {
     method: Method<I, O>
   ) {
     if (this._reservedNames.includes(name)) {
-      throw new Error(
-        `Method name "${name}" is reserved and cannot be used as a method name.`
-      );
+      throw new Error(`Method name "${name}" is reserved and cannot be used.`);
     }
     this._methods = { ...this._methods, [name]: method };
     return new Proxy<Service>(this, {
