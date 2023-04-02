@@ -9,6 +9,12 @@ test('isEven Method', async (t) => {
     output: { type: 'boolean' },
   });
 
+  t.is(typeof isEven.handler, 'function');
+  t.is(isEven.describe().input.type, 'number');
+  t.is(isEven.describe().output.type, 'boolean');
+  t.deepEqual(isEven.input, { type: 'number' });
+  t.deepEqual(isEven.output, { type: 'boolean' });
+
   const data = [
     { input: 0, output: true },
     { input: 1, output: false },
@@ -20,6 +26,6 @@ test('isEven Method', async (t) => {
   ];
 
   for (const { input, output } of data) {
-    t.is(await isEven.handler(input), output);
+    t.deepEqual(await isEven.handler(input), output);
   }
 });
