@@ -4,16 +4,14 @@ ChatRPC is a framework that allows large language models to interact with extern
 
 Users of the library define methods and services:
 ```typescript
-const isEvenMethod = new Method<number, boolean>(
-  async (input) => input % 2 === 0, // Implementation
-  { type: 'number' }, // Schema for input
-  { type: 'boolean' }, // Schema for output
-);
+const isEven = new Method({
+  handler: async (input: number) => input % 2 === 0,
+  input: { type: 'number' },
+  output: { type: 'boolean' },
+});
 
-const calculatorService = new Service('calculator').registerMethod(
-  'isEven',
-  isEvenMethod
-);
+const calculatorService = new Service({ name: 'calculator' })
+  .registerMethod('isEven',isEven);
 ```
 
 The LLM's will be prompted to output only valid JSON that can either contain a `message` to the user or a `method` call, for example:
