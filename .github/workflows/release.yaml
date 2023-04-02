@@ -38,7 +38,7 @@ jobs:
       - name: Clean up for publishing
         run: |
           rm -rf .github .nyc_output .vscode coverage build/docs examples node_modules src
-          rm -v !("package.json"|".npmrc"|"README.md"|"CHANGELOG.md"|"LICENSE")
+          rm .editorconfig .eslintrc.json .gitignore .prettierignore tsconfig.json tsconfig.module.json yarn.lock
           rm -- **/*.tsbuildinfo
           rm -- **/*.spec.d.ts
           rm -- **/*.spec.js
