@@ -31,12 +31,30 @@ export type ChatMessage = {
     }
 );
 
+/**
+ * A chat is a conversation between a user and a machine.
+ * The machine can interact with external services (see {@link Service}).
+ *
+ * @example
+ * ```ts
+ * const chat = new Chat();
+ * chat.registerService('currency', new CurrencyService());
+ * chat.addUserInput('Hello bot!');
+ * chat.addAssistantOutput('{"message":"Hello human!"}');
+ * ```
+ */
+
 export class Chat {
   private _prompt: string;
   private _messages: ChatMessage[] = [];
   private _services: Record<string, Service> = {};
 
   constructor(config?: { prompt?: string }) {
+    /**
+     * Returns the prompt for the chat.
+     * This prompt is used to initialize the chat.
+     * See {@link getChatGpt3Prompt} for an prebuilt prompt for OpenAI's GPT-3.
+     */
     this._prompt = config?.prompt ?? '';
   }
 
@@ -206,15 +224,28 @@ export class Chat {
     };
   }
 
+  /**
+   * Returns the prompt for the chat.
+   */
   public get prompt(): string {
     return this._prompt;
   }
 
+  /**
+   * Returns the messages in the chat.
+   * The messages are returned as a deep clone to prevent accidental mutation.
+   * The messages are returned in the order they were added.
+   * The first message is the prompt.
+   */
   public get messages(): ChatMessage[] {
     return [...this._messages];
   }
 
-  public get lastMessage(): ChatMessage | undefined {
+  /**
+   * Returns the last message in the chat.
+   * The message is returned as a deep clone to prevent accidental mutation.
+   */
+  public get lastMessage(): ChatMessage {
     return this._messages[this._messages.length - 1];
   }
 

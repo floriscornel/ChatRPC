@@ -4,7 +4,6 @@
  * @see https://json-schema.org/understanding-json-schema/reference/index.html
  *
  * This library does not implement the full JSON Schema specification, only a subset of it.
- * At runtime objects can be validated using the {@link validate} function.
  */
 
 export type Schema<T> = BaseSchema<T> &

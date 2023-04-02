@@ -2,8 +2,19 @@ import { Method } from './method';
 
 /**
  * This is the definition of a service that can be called by the LLM.
- * The methods are defined by a {@link Method}.
+ * The methods are defined by a {@link Method}. The services can be added to a {@link Chat}.
+ * @example
+ * Here's an example of how to create a service:
+ * ```ts
+ * const hotelService = new Service({
+ *   name: 'hotel',
+ *   description: 'A service for hotels',
+ *   keywords: ['hotel', 'reservation'],
+ * });
+ * ```
+ *
  */
+
 export class Service {
   private _name: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -11,17 +22,6 @@ export class Service {
   private _description?: string;
   private _keywords?: string[];
 
-  /**
-   * @example
-   * Here's an example of how to create a service:
-   * ```ts
-   * const hotelService = new Service({
-   *   name: 'hotel',
-   *   description: 'A service for hotels',
-   *   keywords: ['hotel', 'reservation'],
-   * });
-   * ```
-   */
   constructor(config: {
     name: string;
     description?: string;
