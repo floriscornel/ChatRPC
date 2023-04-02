@@ -35,13 +35,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Run build
+        run: yarn build
+
       - name: Clean up for publishing
         run: |
           rm -rf .github .nyc_output .vscode coverage build/docs examples node_modules src
-          rm .editorconfig .eslintrc.json .gitignore .prettierignore tsconfig.json tsconfig.module.json yarn.lock
-          rm -- **/*.tsbuildinfo
-          rm -- **/*.spec.d.ts
-          rm -- **/*.spec.js
+          rm -f .editorconfig .eslintrc.json .gitignore .prettierignore tsconfig.json tsconfig.module.json yarn.lock
+          rm -f -- build/**/*.tsbuildinfo build/**/*.spec.d.ts build/**/*.spec.js
 
       - name: Publish Package to NPM
         run: yarn publish
