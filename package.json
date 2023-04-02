@@ -1,11 +1,12 @@
 {
   "name": "chatrpc",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "ChatRPC is a framework that allows large language models to interact with external services.",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
   "module": "build/module/index.js",
   "repository": "https://github.com/floriscornel/chatrpc",
+  "homepage": "https://floriscornel.github.io/ChatRPC/",
   "author": "Floris Cornel <floris@cornel.email>",
   "license": "MIT",
   "keywords": [

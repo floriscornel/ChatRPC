@@ -18,7 +18,7 @@ const prompt =
   'Always check the TMDB ID for a movie before using the getMovieDetails method.';
 
 const chat = new Chat({ prompt });
-chat.registerService('getOpenAIResponse', tmdbService);
+chat.registerService('tmdb', tmdbService);
 
 // Main loop
 (async () => {
@@ -29,7 +29,7 @@ chat.registerService('getOpenAIResponse', tmdbService);
       break;
     }
     if (userInput === 'print') {
-      console.log(chat.messages);
+      console.log(JSON.stringify(chat.messages, null, 2));
       continue;
     }
     chat.addUserInput(userInput);
@@ -38,9 +38,19 @@ chat.registerService('getOpenAIResponse', tmdbService);
 })();
 
 function print(message: ChatMessage) {
-  console.log(`${message.role}: ${message.content}}`);
+  if (message.role === 'system') {
+    console.log(`\x1b[33mSystem: ${JSON.stringify(message.content)}\x1b[0m`);
+  }
+  if (message.role === 'assistant') {
+    if (message.type === 'message') {
+      console.log(`Assistant: ${message.content.message}`);
+    } else {
+      console.log(
+        `\x1b[35mAssistant: ${JSON.stringify(message.content)}\x1b[0m`
+      );
+    }
+  }
 }
-
 function convertMessages(chat: ChatMessage[]): Message[] {
   return chat.map((message) => {
     return {
@@ -66,6 +76,7 @@ async function resolveResponses() {
           convertMessages(chat.messages)
         );
         await chat.addAssistantOutput(chatGptResponse.content);
+        print(chat.messages[chat.messages.length - 2]);
         break;
     }
   }

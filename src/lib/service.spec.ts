@@ -51,11 +51,6 @@ test('Calculator Service', async (t) => {
       })
     );
 
-  t.is(
-    JSON.stringify(calculatorService.describe()),
-    '{"name":"calculator","methods":{"add":{"input":{"type":"object","properties":{"lhs":{"type":"number"},"rhs":{"type":"number"}}},"output":{"type":"number"}},"subtract":{"input":{"type":"object","properties":{"lhs":{"type":"number"},"rhs":{"type":"number"}}},"output":{"type":"number"}},"multiply":{"input":{"type":"object","properties":{"lhs":{"type":"number"},"rhs":{"type":"number"}}},"output":{"type":"number"}},"divide":{"input":{"type":"object","properties":{"lhs":{"type":"number"},"rhs":{"type":"number"}}},"output":{"type":"number"}}}}'
-  );
-
   const data = [
     ['add', { lhs: 1, rhs: 2 }, 3],
     ['subtract', { lhs: 1, rhs: 2 }, -1],

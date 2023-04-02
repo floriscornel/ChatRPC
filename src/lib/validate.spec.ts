@@ -93,7 +93,6 @@ const invalidCases: SchemaPair<any>[] = [
     ['a', true],
     { type: 'array', items: { type: 'string' }, uniqueItems: true },
   ],
-  [{}, { type: 'object', properties: { hello: { type: 'string' } } }],
   [
     { hello: 'world' },
     {
@@ -147,5 +146,60 @@ test('validate incorrect examples', (t) => {
 test('validate exceptions', (t) => {
   t.throws(() =>
     validate(BigInt(1), { type: 'incorrect' } as unknown as Schema<null>)
+  );
+});
+
+test('TMDB movie search request', (t) => {
+  const inDef: Schema<{
+    include_adult?: boolean;
+    region?: string;
+    year?: number;
+    primary_release_year?: number;
+    query: string;
+    page?: number;
+  }> = {
+    type: 'object',
+    properties: {
+      query: { type: 'string' },
+      page: { type: 'number' },
+      include_adult: { type: 'boolean' },
+      year: { type: 'number' },
+      primary_release_year: { type: 'number' },
+    },
+    required: ['query'],
+  };
+
+  t.is(
+    validate(
+      {
+        service: 'tmdb',
+        method: 'searchMovies',
+        input: {
+          query: 'The Matrix',
+          year: 1999,
+          include_adult: false,
+          page: 1,
+        },
+      },
+      inDef
+    ),
+    true
+  );
+
+  t.is(
+    validate(
+      {
+        service: 'tmdb',
+        method: 'searchMovies',
+        input: {
+          query: 'The Matrix',
+          year: '1999',
+          include_adult: 'false',
+          page: '1',
+        },
+      },
+      inDef
+    ),
+    true
   );
 });

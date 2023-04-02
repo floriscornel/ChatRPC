@@ -4,7 +4,7 @@ import { Chat } from './chat';
 import { Method } from './method';
 import { Service } from './service';
 
-test('isEven Method', async (t) => {
+test('Can create chat with service and method', async (t) => {
   const isEven = new Method({
     handler: async (input: number) => input % 2 === 0,
     input: { type: 'number' },
@@ -16,18 +16,18 @@ test('isEven Method', async (t) => {
     isEven
   );
 
-  const chat = new Chat().registerService('isEven', service);
+  const prompt = `Pretend that you are a chatbot.`;
 
-  t.is(await chat.isEven.isEven.handler(2), true);
-  t.true(chat.lastMessage === undefined);
-  t.deepEqual(chat.messages, []);
+  const chat = new Chat({ prompt }).registerService('isEvenService', service);
+
+  t.is(await chat.isEvenService.isEven.handler(2), true);
 
   chat.addUserInput('Hello bot!');
   chat.addAssistantOutput(JSON.stringify({ message: 'Hello human!' }));
   chat.addUserInput('is 857327 even?');
   const response = await chat.addAssistantOutput(
     JSON.stringify({
-      service: 'isEven',
+      service: 'isEvenService',
       method: 'isEven',
       input: 857327,
     })
@@ -36,6 +36,40 @@ test('isEven Method', async (t) => {
   t.deepEqual(response, { output: false });
 
   t.deepEqual(chat.messages, [
+    {
+      content: prompt,
+      role: 'system',
+      type: 'prompt',
+    },
+    {
+      role: 'assistant',
+      type: 'request',
+      content: {
+        service: 'root',
+        method: 'getServices',
+        input: null,
+      },
+    },
+    {
+      role: 'system',
+      type: 'response',
+      content: {
+        output: {
+          isEvenService: {
+            methods: {
+              isEven: {
+                input: {
+                  type: 'number',
+                },
+                output: {
+                  type: 'boolean',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
     { role: 'user', type: 'message', content: { message: 'Hello bot!' } },
     {
       role: 'assistant',
@@ -47,7 +81,7 @@ test('isEven Method', async (t) => {
       role: 'assistant',
       type: 'request',
       content: {
-        service: 'isEven',
+        service: 'isEvenService',
         method: 'isEven',
         input: 857327,
       },

@@ -24,6 +24,11 @@ export type ChatMessage = {
       type: 'response';
       content: MethodResponseWrapper;
     }
+  | {
+      role: 'system';
+      type: 'prompt';
+      content: string;
+    }
 );
 
 const reservedNames = ['prompt', 'messages', 'lastMessage'] as const;
@@ -65,9 +70,30 @@ export class Chat {
   }
 
   /**
+   * Starts the conversation
+   */
+  private init() {
+    this._messages.push({
+      role: 'system',
+      type: 'prompt',
+      content: this._prompt,
+    });
+    this.addAssistantMessage({
+      service: 'root',
+      method: 'getServices',
+      input: null,
+    });
+    this.addSystemMessage({ output: this.describe() });
+  }
+
+  /**
    * Adds a message from the user to the chat.
    */
   addUserInput(message: string) {
+    if (this._messages.length === 0) {
+      this.init();
+    }
+
     const wrapped: MessageWrapper = { message };
     this._messages.push({ role: 'user', type: 'message', content: wrapped });
   }
@@ -76,6 +102,9 @@ export class Chat {
    * Adds a message from the user to the chat.
    */
   addAssistantMessage(content: MessageWrapper | MethodRequestWrapper) {
+    if (this._messages.length === 0) {
+      this.init();
+    }
     if ('message' in content) {
       this._messages.push({ role: 'assistant', type: 'message', content });
     } else {
@@ -145,14 +174,13 @@ export class Chat {
     if (
       'service' in r &&
       'method' in r &&
-      'input' in r &&
       typeof r.service === 'string' &&
       typeof r.method === 'string'
     ) {
       return {
         service: r.service,
         method: r.method,
-        input: r.input,
+        input: r.input ?? null,
       };
     }
     throw new Error(
@@ -201,5 +229,14 @@ export class Chat {
 
   public get lastMessage(): ChatMessage {
     return this._messages[this._messages.length - 1];
+  }
+
+  describe(): object {
+    const services: Record<string, object> = {};
+    for (const [name, service] of Object.entries(this._services)) {
+      services[name] = service.describe();
+    }
+    // Deep clone the object to prevent accidental mutation.
+    return JSON.parse(JSON.stringify(services));
   }
 }

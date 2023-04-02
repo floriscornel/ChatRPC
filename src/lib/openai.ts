@@ -8,10 +8,11 @@ export const getChatGpt3Prompt = (): string => {
 
 Rules:
 1. All messages to the User must be in the following format:
-WARPPED_MESSAGE_SCHEMA: ${JSON.stringify(messageWrapperSchema)}
+${JSON.stringify(messageWrapperSchema)}
 
 3. You can request the execution of a method of a service by sending the following format:
-RPC_EXECUTION_SCHEMA: ${JSON.stringify(methodRequestWrapperSchema)}
+${JSON.stringify(methodRequestWrapperSchema)}
+
 Note: The user cannot see the output of the method execution. The output is only visible to the system.
 You must inform the user of the output of the method execution.
 To get the available services and methods, send the following message:

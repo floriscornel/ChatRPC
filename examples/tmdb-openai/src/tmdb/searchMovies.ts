@@ -61,5 +61,6 @@ export const searchMovies = new Method<
     },
     required: ['page', 'results', 'total_pages', 'total_results'],
   },
-  description: 'This functions allows users to search for movies.',
+  description:
+    'This functions allows users to search for movies. Be careful of the input types, do not pass a string when the input type is a number.',
 });

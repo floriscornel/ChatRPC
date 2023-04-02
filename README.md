@@ -27,7 +27,7 @@ Assistant: {"message":"500 USD is equivalent to 415.53 EUR."}
 ```
 
 ## Example Application
-A working example that integrates TMDB into ChatGPT can be found here: [examples/tmdb-openai](https://github.com/floriscornel/ChatRPC/examples/tmdb-openai).
+A working example that integrates TMDB into ChatGPT can be found here: [examples/tmdb-openai](https://github.com/floriscornel/ChatRPC/tree/main/examples/tmdb-openai).
 
 <img src="https://floriscornel.nl/ChatRPC-tmdb-demo.gif" width="655" height="422">
 

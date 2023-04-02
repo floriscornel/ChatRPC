@@ -72,10 +72,7 @@ function validateObject(input: any, schema: Schema<object>): boolean {
     }
   }
   for (const [key, value] of Object.entries(schema.properties)) {
-    if (!(key in input)) {
-      return false;
-    }
-    if (!validate(input[key], value)) {
+    if (key in input && !validate(input[key], value)) {
       return false;
     }
   }

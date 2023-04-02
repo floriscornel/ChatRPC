@@ -110,7 +110,6 @@ export class Service {
     // Deep clone the object to prevent accidental mutation.
     return JSON.parse(
       JSON.stringify({
-        name: this._name,
         description: this._description,
         keywords: this._keywords,
         methods,
