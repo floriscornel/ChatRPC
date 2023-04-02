@@ -1,7 +1,5 @@
 import { Method } from './method';
 
-type ReservedNames = 'name' | 'registerMethod';
-
 /**
  * This is the definition of a service that can be called by the LLM.
  * The methods are defined by a {@link Method}.
@@ -12,7 +10,6 @@ export class Service {
   private _methods: Record<string, Method<any, any>> = {};
   private _description?: string;
   private _keywords?: string[];
-  private _reservedNames: string[] = ['name', 'registerMethod'];
 
   /**
    * @example
@@ -62,21 +59,17 @@ export class Service {
    * @returns Service with the new method registered. Use this to chain method registrations.
    */
   registerMethod<N extends string, I, O>(
-    name: N & (N extends ReservedNames ? never : N),
+    name: N & (N extends keyof Service ? never : N),
     method: Method<I, O>
   ) {
-    if (this._reservedNames.includes(name)) {
+    if (name in this) {
       throw new Error(`Method name "${name}" is reserved and cannot be used.`);
     }
     this._methods = { ...this._methods, [name]: method };
     return new Proxy<Service>(this, {
       get(target, prop, receiver) {
-        // if prop is not a string we can't do anything with it
-        if (typeof prop !== 'string') {
-          return undefined;
-        }
         // for existing keys in _methods, return the method
-        if (prop in target._methods) {
+        if (typeof prop === 'string' && prop in target._methods) {
           return target._methods[prop];
         }
         // otherwise return the value from the original object

@@ -51,6 +51,8 @@ test('Calculator Service', async (t) => {
       })
     );
 
+  t.is(calculatorService.name, 'calculator');
+
   const data = [
     ['add', { lhs: 1, rhs: 2 }, 3],
     ['subtract', { lhs: 1, rhs: 2 }, -1],
@@ -60,5 +62,24 @@ test('Calculator Service', async (t) => {
 
   for (const [methodName, input, output] of data) {
     t.is(await calculatorService[methodName].handler(input), output);
+  }
+});
+
+test('Reserved Names cannot be used in registerMethod', async (t) => {
+  const method = new Method({
+    handler: async (input) => input,
+    input: { type: 'any' },
+  });
+
+  const service = new Service({ name: 'service' });
+
+  try {
+    service.registerMethod('getMethod' as never, method);
+  } catch (e) {
+    if (e instanceof Error)
+      t.is(
+        e.message,
+        'Method name "getMethod" is reserved and cannot be used.'
+      );
   }
 });

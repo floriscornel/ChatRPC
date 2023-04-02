@@ -31,9 +31,6 @@ export type ChatMessage = {
     }
 );
 
-const reservedNames = ['prompt', 'messages', 'lastMessage'] as const;
-type ReservedNames = (typeof reservedNames)[number];
-
 export class Chat {
   private _prompt: string;
   private _messages: ChatMessage[] = [];
@@ -44,21 +41,17 @@ export class Chat {
   }
 
   registerService<N extends string, S extends Service>(
-    name: N & (N extends ReservedNames ? never : N),
+    name: N & (N extends keyof Chat ? never : N),
     service: S
   ) {
-    if ((reservedNames as ReadonlyArray<string>).includes(name)) {
+    if (name in this) {
       throw new Error(`Service name "${name}" is reserved and cannot be used.`);
     }
     this._services = { ...this._services, [name]: service };
     return new Proxy<Chat>(this, {
       get(target, prop, receiver) {
-        // if prop is not a string we can't do anything with it
-        if (typeof prop !== 'string') {
-          return undefined;
-        }
         // for existing keys in _services, return the service
-        if (prop in target._services) {
+        if (typeof prop === 'string' && prop in target._services) {
           return target._services[prop];
         }
         // otherwise return the value from the original object
@@ -138,13 +131,7 @@ export class Chat {
       this.addSystemMessage(response);
       return response;
     } catch (e) {
-      // We failed to parse the message.
-      if (e instanceof Error) {
-        return { error: e.message };
-      }
-      return {
-        error: 'We could not parse your response. Please format it propperly.',
-      };
+      return { error: (e as Error).message };
     }
   }
 
@@ -227,7 +214,7 @@ export class Chat {
     return [...this._messages];
   }
 
-  public get lastMessage(): ChatMessage {
+  public get lastMessage(): ChatMessage | undefined {
     return this._messages[this._messages.length - 1];
   }
 
