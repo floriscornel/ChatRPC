@@ -169,37 +169,6 @@ test('TMDB movie search request', (t) => {
     required: ['query'],
   };
 
-  t.is(
-    validate(
-      {
-        service: 'tmdb',
-        method: 'searchMovies',
-        input: {
-          query: 'The Matrix',
-          year: 1999,
-          include_adult: false,
-          page: 1,
-        },
-      },
-      inDef
-    ),
-    true
-  );
-
-  t.is(
-    validate(
-      {
-        service: 'tmdb',
-        method: 'searchMovies',
-        input: {
-          query: 'The Matrix',
-          year: '1999',
-          include_adult: 'false',
-          page: '1',
-        },
-      },
-      inDef
-    ),
-    false
-  );
+  t.is(validate({ query: 'The Matrix', year: 1999 }, inDef), true);
+  t.is(validate({ query: 'The Matrix', year: '1999' }, inDef), false);
 });
