@@ -15,12 +15,19 @@
 <li><a href="../modules.html">chatrpc</a></li>
 <li><a href="Chat.html">Chat</a></li></ul>
 <h1>Class Chat</h1></div>
+<section class="tsd-panel tsd-comment">
+<div class="tsd-comment tsd-typography"><p>A chat is a conversation between a user and a machine.
+The machine can interact with external services (see <a href="Service.html">Service</a>).</p>
+
+<h3>Example</h3><pre><code class="language-ts"><span class="hl-0">const</span><span class="hl-1"> </span><span class="hl-2">chat</span><span class="hl-1"> = </span><span class="hl-0">new</span><span class="hl-1"> </span><span class="hl-3">Chat</span><span class="hl-1">();</span><br/><span class="hl-4">chat</span><span class="hl-1">.</span><span class="hl-3">registerService</span><span class="hl-1">(</span><span class="hl-7">&#39;currency&#39;</span><span class="hl-1">, </span><span class="hl-0">new</span><span class="hl-1"> </span><span class="hl-3">CurrencyService</span><span class="hl-1">());</span><br/><span class="hl-4">chat</span><span class="hl-1">.</span><span class="hl-3">addUserInput</span><span class="hl-1">(</span><span class="hl-7">&#39;Hello bot!&#39;</span><span class="hl-1">);</span><br/><span class="hl-4">chat</span><span class="hl-1">.</span><span class="hl-3">addAssistantOutput</span><span class="hl-1">(</span><span class="hl-7">&#39;{&quot;message&quot;:&quot;Hello human!&quot;}&#39;</span><span class="hl-1">);</span>
+</code></pre>
+</div></section>
 <section class="tsd-panel tsd-hierarchy">
 <h4>Hierarchy</h4>
 <ul class="tsd-hierarchy">
 <li><span class="target">Chat</span></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/0fc2c08/src/lib/chat.ts#L34">lib/chat.ts:34</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/74a83e6/src/lib/chat.ts#L47">lib/chat.ts:47</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -71,56 +78,66 @@
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> prompt<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5></li></ul></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="Chat.html" class="tsd-signature-type" data-tsd-kind="Class">Chat</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/0fc2c08/src/lib/chat.ts#L39">lib/chat.ts:39</a></li></ul></aside></li></ul></section></section>
+<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/74a83e6/src/lib/chat.ts#L52">lib/chat.ts:52</a></li></ul></aside></li></ul></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Properties</h2>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private"><a id="_messages" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>_messages</span><a href="#_messages" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">_messages<span class="tsd-signature-symbol">:</span> <a href="../types/ChatMessage.html" class="tsd-signature-type" data-tsd-kind="Type alias">ChatMessage</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/0fc2c08/src/lib/chat.ts#L36">lib/chat.ts:36</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/74a83e6/src/lib/chat.ts#L49">lib/chat.ts:49</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private"><a id="_prompt" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>_prompt</span><a href="#_prompt" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">_prompt<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/0fc2c08/src/lib/chat.ts#L35">lib/chat.ts:35</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/74a83e6/src/lib/chat.ts#L48">lib/chat.ts:48</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private"><a id="_services" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>_services</span><a href="#_services" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">_services<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="Service.html" class="tsd-signature-type" data-tsd-kind="Class">Service</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = {}</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/0fc2c08/src/lib/chat.ts#L37">lib/chat.ts:37</a></li></ul></aside></section></section>
+<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/74a83e6/src/lib/chat.ts#L50">lib/chat.ts:50</a></li></ul></aside></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Accessors</h2>
 <section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class"><a id="lastMessage" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>last<wbr/>Message</span><a href="#lastMessage" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
-<li class="tsd-signature" id="lastMessage.lastMessage-1"><span class="tsd-signature-symbol">get</span> lastMessage<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../types/ChatMessage.html" class="tsd-signature-type" data-tsd-kind="Type alias">ChatMessage</a></li>
+<li class="tsd-signature" id="lastMessage.lastMessage-1"><span class="tsd-signature-symbol">get</span> lastMessage<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../types/ChatMessage.html" class="tsd-signature-type" data-tsd-kind="Type alias">ChatMessage</a></li>
 <li class="tsd-description">
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../types/ChatMessage.html" class="tsd-signature-type" data-tsd-kind="Type alias">ChatMessage</a></h4><aside class="tsd-sources">
+<div class="tsd-comment tsd-typography"><p>Returns the last message in the chat.
+The message is returned as a deep clone to prevent accidental mutation.</p>
+</div>
+<h4 class="tsd-returns-title">Returns <a href="../types/ChatMessage.html" class="tsd-signature-type" data-tsd-kind="Type alias">ChatMessage</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/0fc2c08/src/lib/chat.ts#L217">lib/chat.ts:217</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/74a83e6/src/lib/chat.ts#L248">lib/chat.ts:248</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class"><a id="messages" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>messages</span><a href="#messages" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
 <li class="tsd-signature" id="messages.messages-1"><span class="tsd-signature-symbol">get</span> messages<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../types/ChatMessage.html" class="tsd-signature-type" data-tsd-kind="Type alias">ChatMessage</a><span class="tsd-signature-symbol">[]</span></li>
 <li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Returns the messages in the chat.
+The messages are returned as a deep clone to prevent accidental mutation.
+The messages are returned in the order they were added.
+The first message is the prompt.</p>
+</div>
 <h4 class="tsd-returns-title">Returns <a href="../types/ChatMessage.html" class="tsd-signature-type" data-tsd-kind="Type alias">ChatMessage</a><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/0fc2c08/src/lib/chat.ts#L213">lib/chat.ts:213</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/74a83e6/src/lib/chat.ts#L240">lib/chat.ts:240</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class"><a id="prompt" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>prompt</span><a href="#prompt" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
 <li class="tsd-signature" id="prompt.prompt-1"><span class="tsd-signature-symbol">get</span> prompt<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
 <li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Returns the prompt for the chat.</p>
+</div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/0fc2c08/src/lib/chat.ts#L209">lib/chat.ts:209</a></li></ul></aside></li></ul></section></section>
+<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/74a83e6/src/lib/chat.ts#L230">lib/chat.ts:230</a></li></ul></aside></li></ul></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Methods</h2>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="addAssistantMessage" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>add<wbr/>Assistant<wbr/>Message</span><a href="#addAssistantMessage" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-<li class="tsd-signature tsd-anchor-link" id="addAssistantMessage.addAssistantMessage-1">add<wbr/>Assistant<wbr/>Message<span class="tsd-signature-symbol">(</span>content<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">MessageWrapper</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">MethodRequestWrapper</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#addAssistantMessage.addAssistantMessage-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="addAssistantMessage.addAssistantMessage-1">add<wbr/>Assistant<wbr/>Message<span class="tsd-signature-symbol">(</span>content<span class="tsd-signature-symbol">: </span><a href="../interfaces/Interface.MessageWrapper.html" class="tsd-signature-type" data-tsd-kind="Interface">MessageWrapper</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/Interface.MethodRequestWrapper.html" class="tsd-signature-type" data-tsd-kind="Interface">MethodRequestWrapper</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#addAssistantMessage.addAssistantMessage-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Adds a message from the user to the chat.</p>
 </div>
@@ -128,14 +145,14 @@
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5>content: <span class="tsd-signature-type">MessageWrapper</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">MethodRequestWrapper</span></h5></li></ul></div>
+<h5>content: <a href="../interfaces/Interface.MessageWrapper.html" class="tsd-signature-type" data-tsd-kind="Interface">MessageWrapper</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/Interface.MethodRequestWrapper.html" class="tsd-signature-type" data-tsd-kind="Interface">MethodRequestWrapper</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/0fc2c08/src/lib/chat.ts#L97">lib/chat.ts:97</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/74a83e6/src/lib/chat.ts#L115">lib/chat.ts:115</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="addAssistantOutput" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>add<wbr/>Assistant<wbr/>Output</span><a href="#addAssistantOutput" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-<li class="tsd-signature tsd-anchor-link" id="addAssistantOutput.addAssistantOutput-1">add<wbr/>Assistant<wbr/>Output<span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">MethodResponseWrapper</span><span class="tsd-signature-symbol">&gt;</span><a href="#addAssistantOutput.addAssistantOutput-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="addAssistantOutput.addAssistantOutput-1">add<wbr/>Assistant<wbr/>Output<span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../types/Interface.MethodResponseWrapper.html" class="tsd-signature-type" data-tsd-kind="Type alias">MethodResponseWrapper</a><span class="tsd-signature-symbol">&gt;</span><a href="#addAssistantOutput.addAssistantOutput-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Adds a message from the bot to the chat.</p>
 </div>
@@ -144,22 +161,22 @@
 <ul class="tsd-parameter-list">
 <li>
 <h5>message: <span class="tsd-signature-type">string</span></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">MethodResponseWrapper</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../types/Interface.MethodResponseWrapper.html" class="tsd-signature-type" data-tsd-kind="Type alias">MethodResponseWrapper</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/0fc2c08/src/lib/chat.ts#L119">lib/chat.ts:119</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/74a83e6/src/lib/chat.ts#L137">lib/chat.ts:137</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="addSystemMessage" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>add<wbr/>System<wbr/>Message</span><a href="#addSystemMessage" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-<li class="tsd-signature tsd-anchor-link" id="addSystemMessage.addSystemMessage-1">add<wbr/>System<wbr/>Message<span class="tsd-signature-symbol">(</span>content<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">MessageWrapper</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">MethodResponseWrapper</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#addSystemMessage.addSystemMessage-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="addSystemMessage.addSystemMessage-1">add<wbr/>System<wbr/>Message<span class="tsd-signature-symbol">(</span>content<span class="tsd-signature-symbol">: </span><a href="../interfaces/Interface.MessageWrapper.html" class="tsd-signature-type" data-tsd-kind="Interface">MessageWrapper</a><span class="tsd-signature-symbol"> | </span><a href="../types/Interface.MethodResponseWrapper.html" class="tsd-signature-type" data-tsd-kind="Type alias">MethodResponseWrapper</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#addSystemMessage.addSystemMessage-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5>content: <span class="tsd-signature-type">MessageWrapper</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">MethodResponseWrapper</span></h5></li></ul></div>
+<h5>content: <a href="../interfaces/Interface.MessageWrapper.html" class="tsd-signature-type" data-tsd-kind="Interface">MessageWrapper</a><span class="tsd-signature-symbol"> | </span><a href="../types/Interface.MethodResponseWrapper.html" class="tsd-signature-type" data-tsd-kind="Type alias">MethodResponseWrapper</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/0fc2c08/src/lib/chat.ts#L108">lib/chat.ts:108</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/74a83e6/src/lib/chat.ts#L126">lib/chat.ts:126</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="addUserInput" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>add<wbr/>User<wbr/>Input</span><a href="#addUserInput" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -174,7 +191,7 @@
 <h5>message: <span class="tsd-signature-type">string</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/0fc2c08/src/lib/chat.ts#L85">lib/chat.ts:85</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/74a83e6/src/lib/chat.ts#L103">lib/chat.ts:103</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="describe" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>describe</span><a href="#describe" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -182,20 +199,20 @@
 <li class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/0fc2c08/src/lib/chat.ts#L221">lib/chat.ts:221</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/74a83e6/src/lib/chat.ts#L252">lib/chat.ts:252</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private"><a id="getMethodResponse" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>get<wbr/>Method<wbr/>Response</span><a href="#getMethodResponse" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-<li class="tsd-signature tsd-anchor-link" id="getMethodResponse.getMethodResponse-1">get<wbr/>Method<wbr/>Response<span class="tsd-signature-symbol">(</span>warpper<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">MethodRequestWrapper</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">MethodResponseWrapper</span><span class="tsd-signature-symbol">&gt;</span><a href="#getMethodResponse.getMethodResponse-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="getMethodResponse.getMethodResponse-1">get<wbr/>Method<wbr/>Response<span class="tsd-signature-symbol">(</span>warpper<span class="tsd-signature-symbol">: </span><a href="../interfaces/Interface.MethodRequestWrapper.html" class="tsd-signature-type" data-tsd-kind="Interface">MethodRequestWrapper</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/Interface.MethodResponseWrapper.html" class="tsd-signature-type" data-tsd-kind="Type alias">MethodResponseWrapper</a><span class="tsd-signature-symbol">&gt;</span><a href="#getMethodResponse.getMethodResponse-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5>warpper: <span class="tsd-signature-type">MethodRequestWrapper</span></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">MethodResponseWrapper</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<h5>warpper: <a href="../interfaces/Interface.MethodRequestWrapper.html" class="tsd-signature-type" data-tsd-kind="Interface">MethodRequestWrapper</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/Interface.MethodResponseWrapper.html" class="tsd-signature-type" data-tsd-kind="Type alias">MethodResponseWrapper</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/0fc2c08/src/lib/chat.ts#L178">lib/chat.ts:178</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/74a83e6/src/lib/chat.ts#L196">lib/chat.ts:196</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private"><a id="init" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>init</span><a href="#init" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
@@ -205,20 +222,20 @@
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/0fc2c08/src/lib/chat.ts#L68">lib/chat.ts:68</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/74a83e6/src/lib/chat.ts#L86">lib/chat.ts:86</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private"><a id="parseBotMessage" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>parse<wbr/>Bot<wbr/>Message</span><a href="#parseBotMessage" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-<li class="tsd-signature tsd-anchor-link" id="parseBotMessage.parseBotMessage-1">parse<wbr/>Bot<wbr/>Message<span class="tsd-signature-symbol">(</span>input<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">MessageWrapper</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">MethodRequestWrapper</span><a href="#parseBotMessage.parseBotMessage-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="parseBotMessage.parseBotMessage-1">parse<wbr/>Bot<wbr/>Message<span class="tsd-signature-symbol">(</span>input<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/Interface.MessageWrapper.html" class="tsd-signature-type" data-tsd-kind="Interface">MessageWrapper</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/Interface.MethodRequestWrapper.html" class="tsd-signature-type" data-tsd-kind="Interface">MethodRequestWrapper</a><a href="#parseBotMessage.parseBotMessage-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
 <h5>input: <span class="tsd-signature-type">string</span></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">MessageWrapper</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">MethodRequestWrapper</span></h4><aside class="tsd-sources">
+<h4 class="tsd-returns-title">Returns <a href="../interfaces/Interface.MessageWrapper.html" class="tsd-signature-type" data-tsd-kind="Interface">MessageWrapper</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/Interface.MethodRequestWrapper.html" class="tsd-signature-type" data-tsd-kind="Interface">MethodRequestWrapper</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/0fc2c08/src/lib/chat.ts#L138">lib/chat.ts:138</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/74a83e6/src/lib/chat.ts#L156">lib/chat.ts:156</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="registerService" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>register<wbr/>Service</span><a href="#registerService" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -240,7 +257,7 @@
 <h5>service: <span class="tsd-signature-type" data-tsd-kind="Type parameter">S</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="Chat.html" class="tsd-signature-type" data-tsd-kind="Class">Chat</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{</span> <span class="tsd-signature-symbol">[ </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol"> in </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type" data-tsd-kind="Type parameter">S</span> <span class="tsd-signature-symbol">}</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/0fc2c08/src/lib/chat.ts#L43">lib/chat.ts:43</a></li></ul></aside></li></ul></section></section></div>
+<li>Defined in <a href="https://github.com/floriscornel/ChatRPC/blob/74a83e6/src/lib/chat.ts#L61">lib/chat.ts:61</a></li></ul></aside></li></ul></section></section></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tsd-navigation settings">
 <details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
@@ -261,7 +278,9 @@
 <div class="tsd-accordion-details">
 <ul>
 <li><a href="../modules.html">chatrpc</a>
-<ul></ul></li></ul></div></details></nav>
+<ul>
+<li class="tsd-kind-namespace"><a href="../modules/Interface.html">Interface</a></li>
+<li class="tsd-kind-namespace"><a href="../modules/Schemas.html">Schemas</a></li></ul></li></ul></div></details></nav>
 <nav class="tsd-navigation secondary menu-sticky">
 <ul>
 <li class="current tsd-kind-class"><a href="Chat.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-class)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-128-path"></rect><path d="M11.898 16.1201C11.098 16.1201 10.466 15.8961 10.002 15.4481C9.53803 15.0001 9.30603 14.3841 9.30603 13.6001V9.64012C9.30603 8.85612 9.53803 8.24012 10.002 7.79212C10.466 7.34412 11.098 7.12012 11.898 7.12012C12.682 7.12012 13.306 7.34812 13.77 7.80412C14.234 8.25212 14.466 8.86412 14.466 9.64012H13.386C13.386 9.14412 13.254 8.76412 12.99 8.50012C12.734 8.22812 12.37 8.09212 11.898 8.09212C11.426 8.09212 11.054 8.22412 10.782 8.48812C10.518 8.75212 10.386 9.13212 10.386 9.62812V13.6001C10.386 14.0961 10.518 14.4801 10.782 14.7521C11.054 15.0161 11.426 15.1481 11.898 15.1481C12.37 15.1481 12.734 15.0161 12.99 14.7521C13.254 14.4801 13.386 14.0961 13.386 13.6001H14.466C14.466 14.3761 14.234 14.9921 13.77 15.4481C13.306 15.8961 12.682 16.1201 11.898 16.1201Z" fill="var(--color-text)" id="icon-128-text"></path></svg><span>Chat</span></a>
