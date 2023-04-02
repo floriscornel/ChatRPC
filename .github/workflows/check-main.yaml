@@ -1,20 +1,20 @@
-name: Release Workflow
+name: Main Push Workflow
 
 on:
-  release:
-    types: [created]
-
+  pull_request:
+    branches:
+      - main
 jobs:
-  publish:
+  check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      # Setup .npmrc file to publish to npm
-      - uses: actions/setup-node@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: "16.x"
-          registry-url: "https://registry.npmjs.org"
+          node-version: "16"
+          cache: "yarn"
 
       - name: Install project dependencies
         run: yarn
@@ -34,16 +34,3 @@ jobs:
           npx gh-pages -d build/docs -u "github-actions-bot <support+actions@github.com>" -m "[ci skip] Updates"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Clean up for publishing
-        run: |
-          rm -rf .github .nyc_output .vscode coverage build/docs examples node_modules src
-          rm -v !("package.json"|".npmrc"|"README.md"|"CHANGELOG.md"|"LICENSE")
-          rm -- **/*.tsbuildinfo
-          rm -- **/*.spec.d.ts
-          rm -- **/*.spec.js
-
-      - name: Publish Package to NPM
-        run: yarn publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
