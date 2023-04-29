@@ -10,15 +10,15 @@
   "author": "Floris Cornel <floris@cornel.email>",
   "license": "MIT",
   "dependencies": {
-    "chatrpc": "file:../../",
+    "chatrpc": "file:../..",
     "dotenv": "^16.0.3",
-    "moviedb-promise": "^3.3.1",
+    "moviedb-promise": "^3.4.0",
     "openai": "^3.2.1",
     "readline-sync": "^1.4.10"
   },
   "devDependencies": {
-    "@types/node": "^18.15.10",
+    "@types/node": "^18.16.3",
     "@types/readline-sync": "^1.4.4",
-    "typescript": "^5.0.2"
+    "typescript": "^5.0.4"
   }
 }
