@@ -3,7 +3,7 @@
 [![NPM version](https://img.shields.io/npm/v/chatrpc.svg)](https://www.npmjs.com/package/chatrpc)
 [![Codecov](https://img.shields.io/codecov/c/github/floriscornel/ChatRPC.svg)](https://codecov.io/gh/floriscornel/ChatRPC)
 [![GitHub Action](https://img.shields.io/github/actions/workflow/status/floriscornel/ChatRPC/check-main.yaml)](https://github.com/floriscornel/ChatRPC/actions/workflows/check-main.yaml)
-![License](https://img.shields.io/github/license/floriscornel/ChatRPC.svg)
+[![License](https://img.shields.io/github/license/floriscornel/ChatRPC.svg)](https://github.com/floriscornel/ChatRPC/blob/main/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/floriscornel/ChatRPC.svg?style=social&logo=github&label=Stars)](https://github.com/floriscornel/ChatRPC)
 
 ChatRPC is a framework that allows large language models to interact with external services.
