@@ -3,9 +3,9 @@
 
 
 "@types/node@^18.16.3":
-  version "18.16.3"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.16.3.tgz#6bda7819aae6ea0b386ebc5b24bdf602f1b42b01"
-  integrity sha512-OPs5WnnT1xkCBiuQrZA4+YAV4HEJejmHneyraIaxsbev5yCEr6KMwINNFP9wQeFIw8FWcoTqF3vQsa5CDaI+8Q==
+  version "18.16.18"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.16.18.tgz#85da09bafb66d4bc14f7c899185336d0c1736390"
+  integrity sha512-/aNaQZD0+iSBAGnvvN2Cx92HqE5sZCPZtx2TsK+4nvV23fFe09jVDvpArXr2j9DnYlzuU9WuoykDDc6wqvpNcw==
 
 "@types/readline-sync@^1.4.4":
   version "1.4.4"
@@ -25,7 +25,7 @@ axios@^0.26.0, axios@^0.26.1:
     follow-redirects "^1.14.8"
 
 "chatrpc@file:../..":
-  version "0.1.2"
+  version "0.1.3"
 
 combined-stream@^1.0.8:
   version "1.0.8"
@@ -40,9 +40,9 @@ delayed-stream@~1.0.0:
   integrity sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==
 
 dotenv@^16.0.3:
-  version "16.0.3"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.3.tgz#115aec42bac5053db3c456db30cc243a5a836a07"
-  integrity sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==
+  version "16.1.4"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.1.4.tgz#67ac1a10cd9c25f5ba604e4e08bc77c0ebe0ca8c"
+  integrity sha512-m55RtE8AsPeJBpOIFKihEmqUcoVncQIwo7x9U8ZwLEZw9ZpXboz2c+rvog+jUaJvVrZ5kBOeYQBX5+8Aa/OZQw==
 
 follow-redirects@^1.14.8:
   version "1.15.2"
@@ -84,9 +84,9 @@ moviedb-promise@^3.4.0:
     lodash "^4.17.21"
 
 openai@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/openai/-/openai-3.2.1.tgz#1fa35bdf979cbde8453b43f2dd3a7d401ee40866"
-  integrity sha512-762C9BNlJPbjjlWZi4WYK9iM2tAVAv0uUp1UmI34vb0CN5T2mjB/qM6RYBmNKMh/dN9fC+bxqPwWJZUTWW052A==
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/openai/-/openai-3.3.0.tgz#a6408016ad0945738e1febf43f2fccca83a3f532"
+  integrity sha512-uqxI/Au+aPRnsaQRe8CojU0eCR7I0mBiKjD3sNMzY6DaC1ZVrc85u98mtJW6voDug8fgGN+DIZmTDxTthxb7dQ==
   dependencies:
     axios "^0.26.0"
     form-data "^4.0.0"
@@ -97,6 +97,6 @@ readline-sync@^1.4.10:
   integrity sha512-gNva8/6UAe8QYepIQH/jQ2qn91Qj0B9sYjMBBs3QOB8F2CXcKgLxQaJRP76sWVRQt+QU+8fAkCbCvjjMFu7Ycw==
 
 typescript@^5.0.4:
-  version "5.0.4"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.0.4.tgz#b217fd20119bd61a94d4011274e0ab369058da3b"
-  integrity sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.1.3.tgz#8d84219244a6b40b6fb2b33cc1c062f715b9e826"
+  integrity sha512-XH627E9vkeqhlZFQuL+UsyAXEnibT0kWR2FWONlr4sTjvxyJYnyefgrkyECLzM5NenmKzRAy2rR/OlYLA1HkZw==
