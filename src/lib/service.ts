@@ -60,7 +60,7 @@ export class Service {
    */
   registerMethod<N extends string, I, O>(
     name: N & (N extends keyof Service ? never : N),
-    method: Method<I, O>
+    method: Method<I, O>,
   ) {
     if (name in this) {
       throw new Error(`Method name "${name}" is reserved and cannot be used.`);
@@ -106,7 +106,7 @@ export class Service {
         description: this._description,
         keywords: this._keywords,
         methods,
-      })
+      }),
     );
   }
 

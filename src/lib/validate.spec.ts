@@ -64,8 +64,8 @@ test('validate correct examples', (t) => {
     t.true(
       validate(input, schema),
       `Incorrectly validated ${JSON.stringify(
-        input
-      )} as 'false' against ${JSON.stringify(schema)}`
+        input,
+      )} as 'false' against ${JSON.stringify(schema)}`,
     );
   }
 });
@@ -137,15 +137,15 @@ test('validate incorrect examples', (t) => {
     t.false(
       validate(input, schema),
       `Incorrectly validated ${JSON.stringify(
-        input
-      )} as 'true' against ${JSON.stringify(schema)}`
+        input,
+      )} as 'true' against ${JSON.stringify(schema)}`,
     );
   }
 });
 
 test('validate exceptions', (t) => {
   t.throws(() =>
-    validate(BigInt(1), { type: 'incorrect' } as unknown as Schema<null>)
+    validate(BigInt(1), { type: 'incorrect' } as unknown as Schema<null>),
   );
 });
 

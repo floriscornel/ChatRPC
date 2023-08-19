@@ -15,7 +15,7 @@ test('Calculator Service', async (t) => {
           properties: { lhs: { type: 'number' }, rhs: { type: 'number' } },
         },
         output: { type: 'number' },
-      })
+      }),
     )
     .registerMethod(
       'subtract',
@@ -26,7 +26,7 @@ test('Calculator Service', async (t) => {
           properties: { lhs: { type: 'number' }, rhs: { type: 'number' } },
         },
         output: { type: 'number' },
-      })
+      }),
     )
     .registerMethod(
       'multiply',
@@ -37,7 +37,7 @@ test('Calculator Service', async (t) => {
           properties: { lhs: { type: 'number' }, rhs: { type: 'number' } },
         },
         output: { type: 'number' },
-      })
+      }),
     )
     .registerMethod(
       'divide',
@@ -48,7 +48,7 @@ test('Calculator Service', async (t) => {
           properties: { lhs: { type: 'number' }, rhs: { type: 'number' } },
         },
         output: { type: 'number' },
-      })
+      }),
     );
 
   t.is(calculatorService.name, 'calculator');
@@ -79,7 +79,7 @@ test('Reserved Names cannot be used in registerMethod', async (t) => {
     if (e instanceof Error)
       t.is(
         e.message,
-        'Method name "getMethod" is reserved and cannot be used.'
+        'Method name "getMethod" is reserved and cannot be used.',
       );
   }
 });
