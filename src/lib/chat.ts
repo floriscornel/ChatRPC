@@ -60,7 +60,7 @@ export class Chat {
 
   registerService<N extends string, S extends Service>(
     name: N & (N extends keyof Chat ? never : N),
-    service: S
+    service: S,
   ) {
     if (name in this) {
       throw new Error(`Service name "${name}" is reserved and cannot be used.`);
@@ -135,7 +135,7 @@ export class Chat {
    * Adds a message from the bot to the chat.
    */
   async addAssistantOutput(
-    message: string
+    message: string,
   ): Promise<MethodResponseWrapper | null> {
     try {
       const wrapped = this.parseBotMessage(message);
@@ -154,13 +154,13 @@ export class Chat {
   }
 
   private parseBotMessage(
-    input: string
+    input: string,
   ): MessageWrapper | MethodRequestWrapper {
     // Find the first and last curly braces in the input.
     // This is a very simple way to find the JSON object in the input.
     const trimmedJsonInput = input.substring(
       input.indexOf('{'),
-      input.lastIndexOf('}') + 1
+      input.lastIndexOf('}') + 1,
     );
     if (trimmedJsonInput === '') {
       // If the input does not contain a JSON object, we assume it is a message is missing a JSON wrapper.
@@ -189,12 +189,12 @@ export class Chat {
       };
     }
     throw new Error(
-      'The input JSON object is not a valid MessageWrapper or MethodRequestWrapper.'
+      'The input JSON object is not a valid MessageWrapper or MethodRequestWrapper.',
     );
   }
 
   private async getMethodResponse(
-    warpper: MethodRequestWrapper
+    warpper: MethodRequestWrapper,
   ): Promise<MethodResponseWrapper> {
     const { service, method, input } = warpper;
     const s = this._services[service];

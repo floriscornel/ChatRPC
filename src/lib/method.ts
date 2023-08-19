@@ -107,7 +107,7 @@ export class Method<Input, Output> {
         keywords: this._keywords,
         input: this._input,
         output: this._output,
-      })
+      }),
     );
   }
 

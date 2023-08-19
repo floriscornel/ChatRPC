@@ -13,7 +13,7 @@ test('Can create chat with service and method', async (t) => {
 
   const service = new Service({ name: 'isEvenService' }).registerMethod(
     'isEven',
-    isEven
+    isEven,
   );
 
   const prompt = `Pretend that you are a chatbot.`;
@@ -30,7 +30,7 @@ test('Can create chat with service and method', async (t) => {
       service: 'isEvenService',
       method: 'isEven',
       input: 857327,
-    })
+    }),
   );
 
   t.deepEqual(response, { output: false });
@@ -100,13 +100,13 @@ test('Check Empty Chat', async (t) => {
   t.throws(() =>
     chat.registerService(
       'registerService' as string,
-      new Service({ name: 'foo' })
-    )
+      new Service({ name: 'foo' }),
+    ),
   );
   t.is(chat.addSystemMessage({ message: 'Message From System' }), undefined);
   t.is(
     chat.addAssistantMessage({ message: 'Message From Assistant' }),
-    undefined
+    undefined,
   );
   t.is(chat.addUserInput('Message From User'), undefined);
   t.deepEqual(await chat.addAssistantOutput(' {{'), {
@@ -124,52 +124,52 @@ test('Check Empty Chat', async (t) => {
     await chat.addAssistantOutput('{"service":"aaa","method":"bbb"}'),
     {
       error: 'Service "aaa" not found.',
-    }
+    },
   );
   const chat2 = chat.registerService('aaa', new Service({ name: 'aaa' }));
   t.deepEqual(
     await chat2.addAssistantOutput('{"service":"aaa","method":"bbb"}'),
     {
       error: 'Method "bbb" not found in service "aaa".',
-    }
+    },
   );
   chat2.aaa.registerMethod(
     'bbb',
     new Method({
       handler: async (caps: boolean) => (caps ? 'BBB' : 'bbb'),
       input: { type: 'boolean' },
-    })
+    }),
   );
   t.deepEqual(
     await chat.addAssistantOutput('{"service":"aaa","method":"bbb"}'),
     {
       error:
         'Your input does not match the input definition.\nDefinition: {"type":"boolean"})',
-    }
+    },
   );
   t.deepEqual(
     await chat.addAssistantOutput(
-      '{"service":"aaa","method":"bbb", "input": 1}'
+      '{"service":"aaa","method":"bbb", "input": 1}',
     ),
     {
       error:
         'Your input does not match the input definition.\nDefinition: {"type":"boolean"})',
-    }
+    },
   );
   t.deepEqual(
     await chat.addAssistantOutput(
-      '{"service":"aaa","method":"bbb", "input": true}'
+      '{"service":"aaa","method":"bbb", "input": true}',
     ),
     {
       output: 'BBB',
-    }
+    },
   );
   t.deepEqual(
     await chat.addAssistantOutput(
-      '{"service":"aaa","method":"bbb", "input": false}'
+      '{"service":"aaa","method":"bbb", "input": false}',
     ),
     {
       output: 'bbb',
-    }
+    },
   );
 });
